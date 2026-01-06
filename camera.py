@@ -110,9 +110,15 @@ FOCUS_POINTS = {
     b'r': {   
         "name": "Rug",
         "cam": [0.0, 1.4, 2.2],     
-        "target": [0.0, 0.01, 0.0]  # 
+        "target": [0.0, 0.01, 0.0]   
     },
 
+    # DIGITAL CLOCK
+    b'j': {
+        "name": "Digital Clock",
+        "cam": [-2.8, 2.2, 0.5],      
+        "target": [-3.95, 2.5, 0.5], 
+},
 }
 
 

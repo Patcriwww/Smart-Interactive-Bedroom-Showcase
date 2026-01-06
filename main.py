@@ -81,8 +81,8 @@ def display():
     draw_text(15, h - 70, "Controls : O Wardrobe | N Day/Night | L Ceiling Lamp | ESC Exit")
 
     draw_text(15, h - 95, "Camera Focus")
-    draw_text(25, h - 115, "1 Bed   2 Table   3 Window   4 Wardrobe   5 Door    6 Poster")
-    draw_text(25, h - 135, "7 Workstation   8 Bookshelf   9 Trash Bin   0 Plant   C Ceiling Lamp   R Rug")
+    draw_text(25, h - 115, "1 Bed   2 Table   3 Window   4 Wardrobe   5 Door    6 Poster   7 Workstation")
+    draw_text(25, h - 135, "8 Bookshelf   9 Trash Bin   0 Plant   C Ceiling Lamp   R Rug    J Clock")
 
 
     # STATE
