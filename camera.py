@@ -4,6 +4,9 @@ import math
 from collision import COLLIDERS, sphere_aabb, CAMERA_RADIUS
 
 
+paused = False
+
+
 # =====================
 # ROOM BOUNDARY (HARUS SAMA DENGAN texture.py)
 # =====================
@@ -117,10 +120,17 @@ FOCUS_POINTS = {
     b'j': {
         "name": "Digital Clock",
         "cam": [-2.8, 2.2, 0.5],      
-        "target": [-3.95, 2.5, 0.5], 
-},
-}
+        "target": [-3.95, 2.5, 0.5] 
+    },
 
+    # AC CENTRAL
+    b'h': {
+        "name": "Central AC",
+        "cam": [-3.2, 1.9, 3.2],     
+        "target": [-1.9, 2.98, 1.8] 
+    },
+
+}
 
 # =====================
 # CAMERA ROTATION (MOUSE)
@@ -131,7 +141,10 @@ mouse_sensitivity = 0.15
 ignore_warp = False
 
 def mouse_look(x, y):
-    global last_x, last_y, yaw, pitch, ignore_warp
+    global last_x, last_y, yaw, pitch, ignore_warp, paused
+
+    if paused:
+        return 
 
     if ignore_warp:
         ignore_warp = False
@@ -234,7 +247,21 @@ def apply_collision():
 # APPLY CAMERA
 # =====================
 def apply_camera():
-    global pos, vel
+    global pos, vel, paused
+
+    # =========================
+    # FREEZE CAMERA WHEN PAUSED
+    # =========================
+    if paused:
+        d = get_dir()
+        gluLookAt(
+            pos[0], pos[1], pos[2],
+            pos[0] + d[0],
+            pos[1] + d[1],
+            pos[2] + d[2],
+            0, 1, 0
+        )
+        return
 
     # =========================
     # PREDICT NEXT POS
@@ -352,4 +379,11 @@ def rotate_camera(key):
 
     pitch = clamp(pitch, -89.0, 89.0)
 
-    
+
+# =====================
+# FREEZE CAMERA
+# =====================    
+def freeze_camera():
+    vel[0] = 0
+    vel[1] = 0
+    vel[2] = 0

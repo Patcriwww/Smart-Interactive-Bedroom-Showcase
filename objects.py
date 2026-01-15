@@ -68,10 +68,11 @@ def draw_table():
 
 
 # =====================================================
-# WINDOW 
+# WINDOW (WITH OUTSIDE TEXTURE)
 # =====================================================
 def draw_window():
     from lighting import is_day
+    from texture import city_day_tex, city_night_tex
 
     glDisable(GL_LIGHTING)
 
@@ -108,21 +109,24 @@ def draw_window():
     glEnd()
 
     # ===============================
-    # KACA (DAY / NIGHT)
+    # KACA (PAKAI TEXTURE LUAR)
     # ===============================
-    if is_day:
-        glColor3f(0.6, 0.8, 1.0)  # biru terang
-    else:
-        glColor3f(0.05, 0.07, 0.12)  # biru gelap malam
-
-
     glass_inset = 0.16
+
+    glEnable(GL_TEXTURE_2D)
+    tex = city_day_tex if is_day else city_night_tex
+    glBindTexture(GL_TEXTURE_2D, tex)
+    glColor3f(1, 1, 1)
+
     glBegin(GL_QUADS)
-    glVertex3f(x_left+glass_inset,  y_bottom+glass_inset, z+0.002)
-    glVertex3f(x_right-glass_inset, y_bottom+glass_inset, z+0.002)
-    glVertex3f(x_right-glass_inset, y_top-glass_inset,    z+0.002)
-    glVertex3f(x_left+glass_inset,  y_top-glass_inset,    z+0.002)
+    glTexCoord2f(0,0); glVertex3f(x_left+glass_inset,  y_bottom+glass_inset, z+0.002)
+    glTexCoord2f(1,0); glVertex3f(x_right-glass_inset, y_bottom+glass_inset, z+0.002)
+    glTexCoord2f(1,1); glVertex3f(x_right-glass_inset, y_top-glass_inset,    z+0.002)
+    glTexCoord2f(0,1); glVertex3f(x_left+glass_inset,  y_top-glass_inset,    z+0.002)
     glEnd()
+
+    glBindTexture(GL_TEXTURE_2D, 0)
+    glDisable(GL_TEXTURE_2D)
 
     # ===============================
     # PEMBAGI KACA (CROSS)
@@ -131,15 +135,47 @@ def draw_window():
     glLineWidth(3)
 
     glBegin(GL_LINES)
-    # vertikal
     glVertex3f(0.0, y_bottom+glass_inset, z+0.003)
     glVertex3f(0.0, y_top-glass_inset,    z+0.003)
-    # horizontal
+
     glVertex3f(x_left+glass_inset, (y_bottom+y_top)/2, z+0.003)
     glVertex3f(x_right-glass_inset,(y_bottom+y_top)/2, z+0.003)
     glEnd()
 
     glEnable(GL_LIGHTING)
+
+    # ===============================
+    # SUNLIGHT BEAM (DAY ONLY)
+    # ===============================
+    if is_day:
+        glDisable(GL_LIGHTING)
+
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+
+        glDisable(GL_DEPTH_TEST)  
+        glDepthMask(GL_FALSE)      
+
+        glColor4f(1.0, 0.95, 0.7, 0.18)
+
+        z0 = z + 0.02
+        z1 = z0 + 4.5
+
+        y0 = (y_bottom + y_top) / 2 + 0.3   
+        y1 = y0 - 2.2
+
+        glBegin(GL_QUADS)
+        glVertex3f(x_left + 0.25,  y0, z0)
+        glVertex3f(x_right - 0.25, y0, z0)
+        glVertex3f(x_right + 2.4,  y1, z1)
+        glVertex3f(x_left  - 2.4,  y1, z1)
+        glEnd()
+
+        glDepthMask(GL_TRUE)
+        glEnable(GL_DEPTH_TEST)
+        glDisable(GL_BLEND)
+
+        glEnable(GL_LIGHTING)
 
 
 # =====================================================
@@ -773,3 +809,75 @@ def draw_trash_bin():
     glEnd()
 
     glPopMatrix()
+
+
+# =====================================================
+# CENTRAL AC (CEILING) 
+# =====================================================
+def draw_central_ac():
+    from texture import ac_tex
+
+    if ac_tex is None:
+        return
+    
+    glDisable(GL_LIGHTING)
+    glEnable(GL_TEXTURE_2D)
+    glBindTexture(GL_TEXTURE_2D, ac_tex)
+    glColor3f(1, 1, 1)
+
+    y = 2.98        
+    size = 0.6
+
+    offset_x = -1.9
+    offset_z = 1.8
+
+    
+    glBegin(GL_QUADS)
+    glTexCoord2f(0, 0); glVertex3f(-size + offset_x, y, -size + offset_z)
+    glTexCoord2f(1, 0); glVertex3f( size + offset_x, y, -size + offset_z)
+    glTexCoord2f(1, 1); glVertex3f( size + offset_x, y,  size + offset_z)
+    glTexCoord2f(0, 1); glVertex3f(-size + offset_x, y,  size + offset_z)
+    glEnd()
+
+    glBindTexture(GL_TEXTURE_2D, 0)
+    glDisable(GL_TEXTURE_2D)
+    glEnable(GL_LIGHTING)
+
+
+# =====================================================
+# POSTER 2 
+# =====================================================
+def draw_poster_2():
+    from texture import poster_tex_2
+
+    if poster_tex_2 is None:
+        return
+
+    glDisable(GL_LIGHTING)
+    glEnable(GL_TEXTURE_2D)
+    glBindTexture(GL_TEXTURE_2D, poster_tex_2)
+    glColor3f(1, 1, 1)
+
+    w = 0.9
+    h = 1.3
+
+    x = -3.95
+    y = 0.5
+    z = 0.5 + 1.0  
+
+    glPushMatrix()
+    glTranslatef(-3.95, 2.0, 3.0)
+    glRotatef(90, 0, 1, 0)   
+
+    glBegin(GL_QUADS)
+    glTexCoord2f(0, 0); glVertex3f(0,     -h/2, 0)
+    glTexCoord2f(1, 0); glVertex3f(w,     -h/2, 0)
+    glTexCoord2f(1, 1); glVertex3f(w,      h/2, 0)
+    glTexCoord2f(0, 1); glVertex3f(0,      h/2, 0)
+    glEnd()
+
+    glPopMatrix()
+
+    glBindTexture(GL_TEXTURE_2D, 0)
+    glDisable(GL_TEXTURE_2D)
+    glEnable(GL_LIGHTING)

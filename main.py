@@ -2,15 +2,21 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import texture
+import camera
 
 from camera import apply_camera, move_camera, rotate_camera, focus_camera, FOCUS_POINTS, mouse_look
 from lighting import setup_lighting, toggle_day_night, toggle_lamp
 from texture import init_texture, draw_room, draw_rug 
-from objects import draw_bed, draw_table, draw_window, draw_door, draw_poster, draw_table_lamp, draw_curtain, draw_ceiling_lamp, draw_plant, draw_workstation, draw_bookshelf, draw_trash_bin 
+from objects import draw_bed, draw_table, draw_window, draw_door, draw_poster, draw_table_lamp, draw_curtain, draw_ceiling_lamp, draw_plant, draw_workstation, draw_bookshelf, draw_trash_bin, draw_central_ac, draw_poster_2
 
 from wardrobe import draw_wardrobe, toggle_wardrobe, update_wardrobe
 from clock3d import draw_clock
 from utils import draw_text, draw_hud_bg
+
+
+paused = False
+poster_mode = 0
+
 
 def init():
     glClearColor(0.15, 0.15, 0.18, 1.0)
@@ -37,6 +43,7 @@ def display():
     draw_ceiling_lamp()
     update_wardrobe()
     draw_poster(texture.poster_tex)
+    draw_poster_2()
     
     draw_plant()
 
@@ -49,6 +56,9 @@ def display():
     draw_bookshelf()
 
     draw_trash_bin()
+
+    draw_central_ac()
+
 
     # =====================
     # HUD (2D OVERLAY)
@@ -74,19 +84,37 @@ def display():
         x=8,
         y=h - 8,
         w=635,
-        h=140,
+        h=155,
         alpha=0.55
     )
 
     draw_text(15, h - 25, "SMART INTERACTIVE BEDROOM")
     draw_text(15, h - 38, "Kelompok 9 - Komputer Grafik")
     draw_text(15, h - 55, "Movement : W A S D | Look : Arrow Keys | Q / E Up Down")
-    draw_text(15, h - 70, "Controls : O Wardrobe | N Day/Night | L Ceiling Lamp | ESC Exit")
+    draw_text(15, h - 70, "Controls : O Wardrobe | N Day/Night | L Ceiling Lamp | ESC Pause")
 
     draw_text(15, h - 95, "Camera Focus")
-    draw_text(25, h - 115, "1 Bed   2 Table   3 Window   4 Wardrobe   5 Door    6 Poster   7 Workstation")
-    draw_text(25, h - 135, "8 Bookshelf   9 Trash Bin   0 Plant   C Ceiling Lamp   R Rug    J Clock")
+    draw_text(25, h - 115, "1 Bed   2 Table   3 Window   4 Wardrobe   5 Door   6 Poster/Poster2")
+    draw_text(25, h - 135, "7 Workstation   8 Bookshelf   9 Trash Bin   0 Plant   C Ceiling Lamp   R Rug")
+    draw_text(25, h - 155, "J Clock    H Air Conditioner")
 
+    # =====================
+    # PAUSE OVERLAY
+    # =====================
+    if paused:
+    # Panel tengah
+        panel_w = 300
+        panel_h = 140
+        px = w // 2 - panel_w // 2
+        py = h // 2 + 60
+
+        draw_hud_bg(px, py, panel_w, panel_h, alpha=0.7)
+
+        cx = px + panel_w // 2  
+
+        draw_text(cx - 25, py - 35, "PAUSED")
+        draw_text(cx - 75, py - 65, "Press ESC to Resume")
+        draw_text(cx - 90, py - 90, "Press Q to Exit Program")
 
     # STATE
     glEnable(GL_DEPTH_TEST)
@@ -99,7 +127,32 @@ def display():
     glutSwapBuffers()
 
 def keyboard(key, x, y):
+    global paused, poster_mode
+
+    if key == b'\x1b': 
+        paused = not paused
+        camera.paused = paused
+        return
+
+    if paused:
+        if key == b'q' or key == b'Q':
+            try:
+                glutLeaveMainLoop()
+            except:
+                pass
+            sys.exit(0)
+        return   
+
     move_camera(key)
+
+    if key == b'6':
+        poster_mode = (poster_mode + 1) % 2
+
+        if poster_mode == 0:
+            focus_camera([0.0, 1.7, 2.4], [0.0, 2.0, 3.95])  
+        else:
+            focus_camera([-1.8, 1.8, 2.8], [-3.95, 2.0, 3.0]) 
+        return
 
     if key in FOCUS_POINTS:
         data = FOCUS_POINTS[key]
@@ -110,13 +163,8 @@ def keyboard(key, x, y):
     if key == b'n':
         toggle_day_night()
     if key == b'l':        
-        toggle_lamp()   
-    elif key == b'\x1b':
-        try:
-            glutLeaveMainLoop()
-        except:
-            pass
-        sys.exit(0)
+        toggle_lamp()
+
 
 def special_key(key, x, y):
     rotate_camera(key)

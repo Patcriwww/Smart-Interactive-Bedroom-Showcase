@@ -8,6 +8,11 @@ wood_tex = None
 door_tex = None
 poster_tex = None
 curtain_tex = None
+city_day_tex = None
+city_night_tex = None
+ac_tex = None
+poster_tex_2 = None
+
 
 
 def load_texture(path):
@@ -33,7 +38,7 @@ def load_texture(path):
 
 
 def init_texture():
-    global floor_tex, wall_tex, rug_tex, wood_tex, door_tex, poster_tex, curtain_tex, table_tex
+    global floor_tex, wall_tex, rug_tex, wood_tex, door_tex, poster_tex, curtain_tex, city_day_tex, city_night_tex, ac_tex, poster_tex_2
     floor_tex = load_texture("textures/floor.jpg")
     wall_tex  = load_texture("textures/wall.jpg")
     rug_tex   = load_texture("textures/rug.jpg")
@@ -41,7 +46,10 @@ def init_texture():
     door_tex = load_texture("textures/door.jpg")
     poster_tex = load_texture("textures/poster.jpg")
     curtain_tex = load_texture("textures/curtain.jpg")
-    
+    city_day_tex = load_texture("textures/city_day.jpg")
+    city_night_tex = load_texture("textures/city_night.jpg")
+    ac_tex = load_texture("textures/ac_central.jpg")
+    poster_tex_2 = load_texture("textures/poster_2.jpg")
 
 def draw_room():
     size = 4
