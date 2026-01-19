@@ -118,7 +118,14 @@ FOCUS_POINTS = {
         "name": "Digital Clock",
         "cam": [-2.8, 2.2, 0.5],      
         "target": [-3.95, 2.5, 0.5], 
-},
+    },
+    
+    #AC CENTRAL
+    b't': {
+    "cam":    [0.0, 2.6, -0.5],   # posisi kamera (dekat plafon)
+    "target": [0.0, 3.0, -1.8]    # posisi AC central
+}
+
 }
 
 

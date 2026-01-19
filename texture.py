@@ -1,15 +1,24 @@
+import os
+
 from OpenGL.GL import *
 from PIL import Image
 
+# =========================
+# GLOBAL TEXTURE HANDLES
+# =========================
 floor_tex = None
 wall_tex  = None
 rug_tex   = None
-wood_tex = None
-door_tex = None
+wood_tex  = None
+door_tex  = None
 poster_tex = None
 curtain_tex = None
+ac_tex = None   # <<< TAMBAHAN
 
 
+# =========================
+# LOAD TEXTURE HELPER
+# =========================
 def load_texture(path):
     img = Image.open(path).convert("RGB")
     img = img.transpose(Image.FLIP_TOP_BOTTOM)
@@ -29,20 +38,39 @@ def load_texture(path):
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
 
+    glBindTexture(GL_TEXTURE_2D, 0)
     return tex
 
 
+# =========================
+# INIT ALL TEXTURES
+# =========================
 def init_texture():
-    global floor_tex, wall_tex, rug_tex, wood_tex, door_tex, poster_tex, curtain_tex, table_tex
-    floor_tex = load_texture("textures/floor.jpg")
-    wall_tex  = load_texture("textures/wall.jpg")
-    rug_tex   = load_texture("textures/rug.jpg")
-    wood_tex = load_texture("textures/wood.jpg")
-    door_tex = load_texture("textures/door.jpg")
-    poster_tex = load_texture("textures/poster.jpg")
-    curtain_tex = load_texture("textures/curtain.jpg")
-    
+    global floor_tex, wall_tex, rug_tex, wood_tex
+    global door_tex, poster_tex, curtain_tex, ac_tex
+    global poster2_tex, poster3_tex, curtain_tex
 
+
+    floor_tex   = load_texture("textures/floor.jpg")
+    wall_tex    = load_texture("textures/wall.jpg")
+    rug_tex     = load_texture("textures/rug.jpg")
+    wood_tex    = load_texture("textures/wood.jpg")
+    door_tex    = load_texture("textures/door.jpg")
+    poster_tex  = load_texture("textures/poster.jpg")
+    poster2_tex = load_texture("textures/poster2.jpg")
+    poster3_tex = load_texture("textures/poster3.jpg")
+    poster2_tex = load_texture("textures/poster2.jpg")
+    poster3_tex = load_texture("textures/poster3.jpg")
+
+    curtain_tex = load_texture("textures/curtain.jpg")
+
+    ac_tex      = load_texture("textures/ac.jpg")   # ← INI
+
+
+
+# =========================
+# DRAW ROOM (FLOOR + WALL)
+# =========================
 def draw_room():
     size = 4
     height = 3
@@ -78,6 +106,9 @@ def draw_room():
     glDisable(GL_TEXTURE_2D)
 
 
+# =========================
+# DRAW RUG
+# =========================
 def draw_rug():
     if rug_tex is None:
         return
