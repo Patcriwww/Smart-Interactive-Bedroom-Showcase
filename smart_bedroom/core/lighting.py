@@ -66,4 +66,3 @@ def toggle_day_night():
 def toggle_lamp():
     global lamp_on
     lamp_on = not lamp_on
->>>>>>> main:lighting.py
