@@ -48,7 +48,7 @@ Project ini dibuat untuk memenuhi tugas mata kuliah **Komputer Grafik & Pengolah
 - `O` : Toggle wardrobe  
 - `N` : Mode siang / malam  
 - `L` : Lampu  
-- `C` : Gorden  
+   
 
 ### Focus Kamera
 - `1` : Bed  
@@ -56,14 +56,18 @@ Project ini dibuat untuk memenuhi tugas mata kuliah **Komputer Grafik & Pengolah
 - `3` : Window  
 - `4` : Wardrobe  
 - `5` : Door  
-- `6` : Poster  
+- `6` : Poster/Poster2  
 - `7` : Workstation  
 - `8` : Bookshelf  
 - `9` : Trash Bin  
-- `0` : Plant  
+- `0` : Plant
+- `H` : Air Conditioner
+- `C` : Lampu Plafon
+- `J` : Jam     
 
 ### Keluar
-- `ESC` : Keluar dari aplikasi  
+- `ESC` : Paused
+- `Q` : Keluar dari aplikasi    
 
 ---
 

@@ -37,11 +37,33 @@ def setup_lighting():
         glDisable(GL_LIGHT1)
 
 
+    # =========================
+    # LIGHT 2 = CAHAYA MATAHARI DARI JENDELA (SIANG)
+    # =========================
+    if is_day:
+        glEnable(GL_LIGHT2)
+
+        # arah dari luar window ke dalam ruangan
+        glLightfv(GL_LIGHT2, GL_POSITION, [0.0, 1.5, -1.0, 0.0])  # directional
+        glLightfv(GL_LIGHT2, GL_AMBIENT,  [0.2, 0.2, 0.15, 1.0])
+        glLightfv(GL_LIGHT2, GL_DIFFUSE,  [0.9, 0.85, 0.7, 1.0])
+        glLightfv(GL_LIGHT2, GL_SPECULAR, [0.6, 0.6, 0.5, 1.0])
+    else:
+        glDisable(GL_LIGHT2)
+
+
+# =========================
+# TOGGLE SIANG / MALAM
+# =========================
 def toggle_day_night():
     global is_day
     is_day = not is_day
 
 
+# =========================
+# TOGGLE LAMPU PLAFON
+# =========================
 def toggle_lamp():
     global lamp_on
     lamp_on = not lamp_on
+>>>>>>> main:lighting.py

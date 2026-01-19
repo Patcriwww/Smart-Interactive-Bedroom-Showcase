@@ -14,6 +14,8 @@ from .bookshelf import draw_bookshelf
 from .trash_bin import draw_trash_bin
 from .wardrobe import draw_wardrobe, toggle_wardrobe, update_wardrobe
 from .clock import draw_clock
+from .central_ac import draw_central_ac
+from .poster_2 import draw_poster_2
 
 __all__ = [
     "draw_bed",
@@ -33,4 +35,6 @@ __all__ = [
     "toggle_wardrobe",
     "update_wardrobe",
     "draw_clock",
+    "draw_central_ac",
+    "draw_poster_2",
 ]
