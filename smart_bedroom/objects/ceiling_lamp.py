@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 import math
 
-from ..core.lighting import setup_lighting
+from ..core import lighting
 
 
 def draw_ceiling_lamp():
@@ -11,7 +11,7 @@ def draw_ceiling_lamp():
     glPushMatrix()
     glTranslatef(0.0, 3.18, 0.0)
 
-    if setup_lighting:
+    if lighting.lamp_on:
         glColor3f(1.0, 0.95, 0.8)
     else:
         glColor3f(0.4, 0.4, 0.4)
