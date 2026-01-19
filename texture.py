@@ -48,7 +48,7 @@ def load_texture(path):
 def init_texture():
     global floor_tex, wall_tex, rug_tex, wood_tex
     global door_tex, poster_tex, curtain_tex, ac_tex
-    global poster2_tex, poster3_tex, curtain_tex
+    global poster2_tex, poster3_tex, poster4_tex, curtain_tex
 
 
     floor_tex   = load_texture("textures/floor.jpg")
@@ -59,8 +59,7 @@ def init_texture():
     poster_tex  = load_texture("textures/poster.jpg")
     poster2_tex = load_texture("textures/poster2.jpg")
     poster3_tex = load_texture("textures/poster3.jpg")
-    poster2_tex = load_texture("textures/poster2.jpg")
-    poster3_tex = load_texture("textures/poster3.jpg")
+    poster4_tex = load_texture("textures/poster_4.jpg")
 
     curtain_tex = load_texture("textures/curtain.jpg")
 

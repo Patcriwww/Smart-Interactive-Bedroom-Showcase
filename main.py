@@ -21,6 +21,7 @@ from objects import (
     draw_poster,
     draw_poster_2,
     draw_poster_3,
+    draw_poster_4,
     draw_table_lamp,
     draw_curtain,
     draw_ceiling_lamp,
@@ -85,6 +86,7 @@ def display():
     draw_poster(texture.poster_tex)
     draw_poster_2(texture.poster2_tex)
     draw_poster_3(texture.poster3_tex)
+    draw_poster_4(texture.poster4_tex)
 
     draw_curtain()
     draw_workstation()
@@ -115,7 +117,7 @@ def display():
         x=8,
         y=h - 8,
         w=650,
-        h=145,
+        h=165,
         alpha=0.55
     )
 
@@ -127,7 +129,9 @@ def display():
     draw_text(15, h - 100, "Camera Focus")
     draw_text(25, h - 120, "1 Bed   2 Table   3 Window   4 Wardrobe   5 Door")
     draw_text(25, h - 140, "6 Poster   7 Workstation   8 Bookshelf   9 Trash Bin")
-    draw_text(25, h - 160, "0 Plant   C Ceiling Lamp   R Rug   J Clock")
+    draw_text(25, h - 160, "0 Plant   C Ceiling Lamp   R Rug   J Clock  T AC")
+
+    
 
     glEnable(GL_DEPTH_TEST)
 

@@ -122,9 +122,11 @@ FOCUS_POINTS = {
     
     #AC CENTRAL
     b't': {
-    "cam":    [0.0, 2.6, -0.5],   # posisi kamera (dekat plafon)
-    "target": [0.0, 3.0, -1.8]    # posisi AC central
+    "cam":    [-2.8, 2.6, -0.5],   # kamera geser ke kiri & sedikit ke depan
+    "target": [-2.2, 3.15, -2.1]   # TEPAT ke pusat AC
 }
+
+
 
 }
 
