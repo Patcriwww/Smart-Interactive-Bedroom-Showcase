@@ -1,20 +1,45 @@
+import os
 from OpenGL.GL import *
 from PIL import Image
 
+# =========================
+# BASE DIRECTORY
+# =========================
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+TEXTURE_DIR = os.path.join(BASE_DIR, "textures")
+
+# =========================
+# GLOBAL TEXTURE HANDLES
+# =========================
 floor_tex = None
-wall_tex = None
-rug_tex = None
-wood_tex = None
-door_tex = None
-poster_tex = None
+wall_tex  = None
+rug_tex   = None
+wood_tex  = None
+door_tex  = None
 curtain_tex = None
 ac_tex = None
-poster_tex_2 = None
+
+# Posters
+poster_1_tex = None
+poster_2_tex = None
+poster_3_tex = None
+poster_4_tex = None
+
+# City
 city_day_tex = None
 city_night_tex = None
 
 
-def load_texture(path):
+
+# =========================
+# LOAD TEXTURE HELPER
+# =========================
+def load_texture(filename):
+    path = os.path.join(TEXTURE_DIR, filename)
+
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"Texture not found: {path}")
+
     img = Image.open(path).convert("RGB")
     img = img.transpose(Image.FLIP_TOP_BOTTOM)
     data = img.tobytes()
@@ -22,64 +47,91 @@ def load_texture(path):
     tex = glGenTextures(1)
     glBindTexture(GL_TEXTURE_2D, tex)
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img.width, img.height, 0, GL_RGB, GL_UNSIGNED_BYTE, data)
+    glTexImage2D(
+        GL_TEXTURE_2D, 0, GL_RGB,
+        img.width, img.height, 0,
+        GL_RGB, GL_UNSIGNED_BYTE, data
+    )
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
 
+    glBindTexture(GL_TEXTURE_2D, 0)
     return tex
 
 
+
+# =========================
+# INIT ALL TEXTURES
+# =========================
 def init_texture():
-    global floor_tex, wall_tex, rug_tex, wood_tex, door_tex, poster_tex, curtain_tex, ac_tex, poster_tex_2, city_day_tex, city_night_tex
-    floor_tex = load_texture("textures/floor.jpg")
-    wall_tex = load_texture("textures/wall.jpg")
-    rug_tex = load_texture("textures/rug.jpg")
-    wood_tex = load_texture("textures/wood.jpg")
-    door_tex = load_texture("textures/door.jpg")
-    poster_tex = load_texture("textures/poster.jpg")
-    curtain_tex = load_texture("textures/curtain.jpg")
-    ac_tex = load_texture("textures/ac_central.jpg")
-    poster_tex_2 = load_texture("textures/poster_2.jpg")
-    city_day_tex = load_texture("textures/city_day.jpg")
-    city_night_tex = load_texture("textures/city_night.jpg")
+    global floor_tex, wall_tex, rug_tex, wood_tex
+    global door_tex, curtain_tex, ac_tex
+    global poster_1_tex, poster_2_tex, poster_3_tex, poster_4_tex
+    global city_day_tex, city_night_tex
+
+    floor_tex   = load_texture("floor.jpg")
+    wall_tex    = load_texture("wall.jpg")
+    rug_tex     = load_texture("rug.jpg")
+    wood_tex    = load_texture("wood.jpg")
+    door_tex    = load_texture("door.jpg")
+    curtain_tex = load_texture("curtain.jpg")
+    ac_tex      = load_texture("ac.jpg")
+
+    poster_1_tex = load_texture("poster_1.jpg")
+    poster_2_tex = load_texture("poster_2.jpg")
+    poster_3_tex = load_texture("poster_3.jpg")
+    poster_4_tex = load_texture("poster_4.jpg")
+
+    city_day_tex   = load_texture("city_day.jpg")
+    city_night_tex = load_texture("city_night.jpg")
 
 
+
+
+# =========================
+# DRAW ROOM (FLOOR + WALL)
+# =========================
 def draw_room():
     size = 4
     height = 3
 
     glEnable(GL_TEXTURE_2D)
 
+    # FLOOR
     glBindTexture(GL_TEXTURE_2D, floor_tex)
     glBegin(GL_QUADS)
     glTexCoord2f(0, 0); glVertex3f(-size, 0, -size)
-    glTexCoord2f(4, 0); glVertex3f(size, 0, -size)
-    glTexCoord2f(4, 4); glVertex3f(size, 0, size)
-    glTexCoord2f(0, 4); glVertex3f(-size, 0, size)
+    glTexCoord2f(4, 0); glVertex3f( size, 0, -size)
+    glTexCoord2f(4, 4); glVertex3f( size, 0,  size)
+    glTexCoord2f(0, 4); glVertex3f(-size, 0,  size)
     glEnd()
 
+    # WALLS
     glBindTexture(GL_TEXTURE_2D, wall_tex)
     walls = [
-        [(-size, 0, -size), (size, 0, -size), (size, height, -size), (-size, height, -size)],
-        [(-size, 0, size), (size, 0, size), (size, height, size), (-size, height, size)],
-        [(-size, 0, -size), (-size, 0, size), (-size, height, size), (-size, height, -size)],
-        [(size, 0, -size), (size, 0, size), (size, height, size), (size, height, -size)],
+        [(-size,0,-size),( size,0,-size),( size,height,-size),(-size,height,-size)],
+        [(-size,0,size),( size,0,size),( size,height,size),(-size,height,size)],
+        [(-size,0,-size),(-size,0,size),(-size,height,size),(-size,height,-size)],
+        [( size,0,-size),( size,0,size),( size,height,size),( size,height,-size)]
     ]
 
     for w in walls:
         glBegin(GL_QUADS)
-        glTexCoord2f(0, 0); glVertex3f(*w[0])
-        glTexCoord2f(4, 0); glVertex3f(*w[1])
-        glTexCoord2f(4, 3); glVertex3f(*w[2])
-        glTexCoord2f(0, 3); glVertex3f(*w[3])
+        glTexCoord2f(0,0); glVertex3f(*w[0])
+        glTexCoord2f(4,0); glVertex3f(*w[1])
+        glTexCoord2f(4,3); glVertex3f(*w[2])
+        glTexCoord2f(0,3); glVertex3f(*w[3])
         glEnd()
 
     glDisable(GL_TEXTURE_2D)
 
 
+# =========================
+# DRAW RUG
+# =========================
 def draw_rug():
     if rug_tex is None:
         return
@@ -92,10 +144,10 @@ def draw_rug():
     rug_d = 1.2
 
     glBegin(GL_QUADS)
-    glTexCoord2f(0, 0); glVertex3f(-rug_w, y, -rug_d)
-    glTexCoord2f(1, 0); glVertex3f(rug_w, y, -rug_d)
-    glTexCoord2f(1, 1); glVertex3f(rug_w, y, rug_d)
-    glTexCoord2f(0, 1); glVertex3f(-rug_w, y, rug_d)
+    glTexCoord2f(0,0); glVertex3f(-rug_w, y, -rug_d)
+    glTexCoord2f(1,0); glVertex3f( rug_w, y, -rug_d)
+    glTexCoord2f(1,1); glVertex3f( rug_w, y,  rug_d)
+    glTexCoord2f(0,1); glVertex3f(-rug_w, y,  rug_d)
     glEnd()
 
     glDisable(GL_TEXTURE_2D)

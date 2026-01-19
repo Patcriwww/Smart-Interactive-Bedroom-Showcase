@@ -80,35 +80,35 @@ def draw_window():
 
     glEnable(GL_LIGHTING)
 
-    # ===============================
-    # SUNLIGHT BEAM (DAY ONLY)
-    # ===============================
-    if is_day:
-        glDisable(GL_LIGHTING)
+    # # ===============================
+    # # SUNLIGHT BEAM (DAY ONLY)
+    # # ===============================
+    # if is_day:
+    #     glDisable(GL_LIGHTING)
 
-        glEnable(GL_BLEND)
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    #     glEnable(GL_BLEND)
+    #     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-        glDisable(GL_DEPTH_TEST)
-        glDepthMask(GL_FALSE)
+    #     glDisable(GL_DEPTH_TEST)
+    #     glDepthMask(GL_FALSE)
 
-        glColor4f(1.0, 0.95, 0.7, 0.18)
+    #     glColor4f(1.0, 0.95, 0.7, 0.18)
 
-        z0 = z + 0.02
-        z1 = z0 + 4.5
+    #     z0 = z + 0.02
+    #     z1 = z0 + 4.5
 
-        y0 = (y_bottom + y_top) / 2 + 0.3
-        y1 = y0 - 2.2
+    #     y0 = (y_bottom + y_top) / 2 + 0.3
+    #     y1 = y0 - 2.2
 
-        glBegin(GL_QUADS)
-        glVertex3f(x_left + 0.25, y0, z0)
-        glVertex3f(x_right - 0.25, y0, z0)
-        glVertex3f(x_right + 2.4, y1, z1)
-        glVertex3f(x_left - 2.4, y1, z1)
-        glEnd()
+    #     glBegin(GL_QUADS)
+    #     glVertex3f(x_left + 0.25, y0, z0)
+    #     glVertex3f(x_right - 0.25, y0, z0)
+    #     glVertex3f(x_right + 2.4, y1, z1)
+    #     glVertex3f(x_left - 2.4, y1, z1)
+    #     glEnd()
 
-        glDepthMask(GL_TRUE)
-        glEnable(GL_DEPTH_TEST)
-        glDisable(GL_BLEND)
+    #     glDepthMask(GL_TRUE)
+    #     glEnable(GL_DEPTH_TEST)
+    #     glDisable(GL_BLEND)
 
-        glEnable(GL_LIGHTING)
+    #     glEnable(GL_LIGHTING)

@@ -149,51 +149,79 @@ def draw_wardrobe(wood_tex):
     global door_angle
 
     glPushMatrix()
-    glTranslatef(3.3, 1.4, -2.2)  # pulled further off the back wall to keep it fully inside the 4x4 room; raised slightly to avoid floor clipping
+    glTranslatef(3.3, 1.4, -2.2)
     glRotatef(-90, 0, 1, 0)
 
-    # BODY - textured with NO front face (to avoid duplicate doors)
+    # =================================================
+    # GLOBAL STATE (WAJIB)
+    # =================================================
+    glEnable(GL_LIGHTING)
+    glEnable(GL_NORMALIZE)
     glEnable(GL_TEXTURE_2D)
+
+    # =================================================
+    # BODY (TANPA FRONT FACE)
+    # =================================================
     glBindTexture(GL_TEXTURE_2D, wood_tex)
-    glColor3f(1, 1, 1)
-    
+    glColor3f(1.0, 1.0, 1.0)
+
     glPushMatrix()
-    glScalef(3.0, 2.6, 0.8)  # reduced depth to avoid wall clipping
+    glScalef(3.0, 2.6, 0.8)
     cube_no_front(1, 1, 1)
     glPopMatrix()
 
-    # DOORS - front face only
-    # LEFT DOOR (full-width coverage)
+    # =================================================
+    # LEFT DOOR
+    # =================================================
     glPushMatrix()
-    glTranslatef(-1.5, 0, 0.41)  # hinge at left edge, adjusted for shallower depth
+    glTranslatef(-1.5, 0, 0.41)
     glRotatef(-door_angle, 0, 1, 0)
     glTranslatef(0.75, 0, 0)
     glScalef(1.5, 2.4, 0.05)
+
+    glBindTexture(GL_TEXTURE_2D, wood_tex)
+    glColor3f(1, 1, 1)
+
+    glNormal3f(0, 0, 1)   # NORMAL KE DEPAN
     door_face(1, 1, 1)
+
+    # HANDLE
     glDisable(GL_TEXTURE_2D)
     glColor3f(0.2, 0.2, 0.2)
-    # single handle centered on door
     door_handle(0.35, 0.0, 0.52, 0.05, 0.35, 0.02)
     glEnable(GL_TEXTURE_2D)
+
     glPopMatrix()
 
-    # RIGHT DOOR (full-width coverage)
+    # =================================================
+    # RIGHT DOOR (FIX GELAP)
+    # =================================================
     glPushMatrix()
-    glTranslatef(1.5, 0, 0.41)   # hinge at right edge, adjusted for shallower depth
+    glTranslatef(1.5, 0, 0.41)
     glRotatef(door_angle, 0, 1, 0)
     glTranslatef(-0.75, 0, 0)
     glScalef(1.5, 2.4, 0.05)
+
+    glBindTexture(GL_TEXTURE_2D, wood_tex)
+    glColor3f(1, 1, 1)
+
+    glNormal3f(0, 0, 1)   # <<< INI KUNCI UTAMA
     door_face(1, 1, 1)
+
+    # HANDLE
     glDisable(GL_TEXTURE_2D)
     glColor3f(0.2, 0.2, 0.2)
-    # single handle centered on door
     door_handle(-0.35, 0.0, 0.52, 0.05, 0.35, 0.02)
     glEnable(GL_TEXTURE_2D)
+
     glPopMatrix()
 
+    # =================================================
+    # CLEANUP
+    # =================================================
     glDisable(GL_TEXTURE_2D)
-
     glPopMatrix()
+
 
 def draw_wardrobe_interior():
     """Draw wardrobe shelves and interior"""

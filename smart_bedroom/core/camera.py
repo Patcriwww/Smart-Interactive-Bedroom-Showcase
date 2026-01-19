@@ -31,7 +31,8 @@ FOCUS_POINTS = {
     b'c': {"name": "Ceiling Lamp", "cam": [0.0, 1.8, 0.0], "target": [0.0, 2.9, 0.0]},
     b'r': {"name": "Rug", "cam": [0.0, 1.4, 2.2], "target": [0.0, 0.01, 0.0]},
     b'j': {"name": "Digital Clock", "cam": [-2.8, 2.2, 0.5], "target": [-3.95, 2.5, 0.5]},
-    b'h': {"name": "Central AC", "cam": [-3.2, 1.9, 3.2], "target": [-1.9, 2.98, 1.8]},
+    b't': {"name": "AC", "cam": [-2.8, 2.6, -0.5], "target": [-2.2, 3.15, -2.1]}
+
 }
 
 last_x = None
