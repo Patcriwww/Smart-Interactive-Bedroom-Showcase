@@ -112,9 +112,3 @@ def draw_window():
         glDisable(GL_BLEND)
 
         glEnable(GL_LIGHTING)
-    glVertex3f(0.0, y_top - glass_inset, z + 0.003)
-    glVertex3f(x_left + glass_inset, (y_bottom + y_top) / 2, z + 0.003)
-    glVertex3f(x_right - glass_inset, (y_bottom + y_top) / 2, z + 0.003)
-    glEnd()
-
-    glEnable(GL_LIGHTING)
