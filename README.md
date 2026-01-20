@@ -68,7 +68,7 @@ Project ini dibuat untuk memenuhi tugas mata kuliah **Komputer Grafik & Pengolah
 
 ### Keluar
 - `ESC` : Paused
-- `Q` : Keluar dari aplikasi    
+- `Mouse Klik` : Keluar dari aplikasi    
 
 ---
 
