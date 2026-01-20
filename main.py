@@ -201,17 +201,18 @@ def display():
     glDisable(GL_DEPTH_TEST)
     glDisable(GL_LIGHTING)
 
-    draw_hud_bg(8, h - 8, 650, 170, alpha=0.55)
+    draw_hud_bg(8, h - 8, 650, 200, alpha=0.60)
 
-    draw_text(15, h - 25, "SMART INTERACTIVE BEDROOM")
-    draw_text(15, h - 40, "Kelompok 9 - Komputer Grafik")
-    draw_text(15, h - 60, "Move : W A S D | Look : Mouse | Q / E Up Down")
-    draw_text(15, h - 75, "Controls : O Wardrobe | N Day/Night | L Main Lamp | K Bed Lamp | P PC Power")
+    draw_text(15, h - 20, "SMART INTERACTIVE BEDROOM")
+    draw_text(15, h - 40, "Kelompok 9 - Komputer Grafik IF23H")
+    draw_text(15, h - 60, "Anggota : Alamsyah H, Ariq Gymnastiar P, Fachri Reyhan, Ralf Fadila")
+    draw_text(15, h - 80, "Move : W A S D | Look : Mouse | Q / E Up Down")
+    draw_text(15, h - 100, "Controls : O Wardrobe | N Day/Night | L Main Lamp | K Bed Lamp | P PC Power")
 
-    draw_text(15, h - 100, "Camera Focus")
-    draw_text(25, h - 120, "1 Bed   2 Table   3 Window   4 Wardrobe   5 Door")
-    draw_text(25, h - 140, "6 Poster Cycle   7 Workstation   8 Bookshelf   9 Trash Bin")
-    draw_text(25, h - 160, "0 Plant   T AC   J Clock   ESC Pause")
+    draw_text(15, h - 120, "Camera Focus")
+    draw_text(25, h - 140, "1 Bed   2 Table   3 Window   4 Wardrobe   5 Door")
+    draw_text(25, h - 160, "6 Poster Cycle   7 Workstation   8 Bookshelf   9 Trash Bin")
+    draw_text(25, h - 180, "0 Plant   T AC   J Clock   ESC Pause")
 
     # =====================
     # PAUSE
