@@ -3,7 +3,6 @@ import math
 
 
 def draw_plant():
-    glDisable(GL_LIGHTING)
     glPushMatrix()
     glTranslatef(-3.6, 0.0, 3.6)
 
@@ -71,4 +70,3 @@ def draw_plant():
 
     glPopMatrix()
     glPopMatrix()
-    glEnable(GL_LIGHTING)

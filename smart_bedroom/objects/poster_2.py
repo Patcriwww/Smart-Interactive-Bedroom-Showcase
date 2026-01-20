@@ -6,7 +6,6 @@ def draw_poster_2(poster_tex_2):
     if poster_tex_2 is None:
         return
 
-    glDisable(GL_LIGHTING)
     glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, poster_tex_2)
     glColor3f(1, 1, 1)
@@ -33,4 +32,3 @@ def draw_poster_2(poster_tex_2):
 
     glBindTexture(GL_TEXTURE_2D, 0)
     glDisable(GL_TEXTURE_2D)
-    glEnable(GL_LIGHTING)
