@@ -29,6 +29,11 @@ poster_4_tex = None
 city_day_tex = None
 city_night_tex = None
 
+# PC screens
+pc_boot_tex = None
+pc_home_tex = None
+pc_shutdown_tex = None
+
 
 
 # =========================
@@ -40,17 +45,26 @@ def load_texture(filename):
     if not os.path.exists(path):
         raise FileNotFoundError(f"Texture not found: {path}")
 
-    img = Image.open(path).convert("RGB")
-    img = img.transpose(Image.FLIP_TOP_BOTTOM)
-    data = img.tobytes()
+    img = Image.open(path)
+    
+    # Handle both RGB and RGBA
+    if img.mode == 'RGBA':
+        img_format = GL_RGBA
+        img = img.transpose(Image.FLIP_TOP_BOTTOM)
+        data = img.tobytes()
+    else:
+        img_format = GL_RGB
+        img = img.convert("RGB")
+        img = img.transpose(Image.FLIP_TOP_BOTTOM)
+        data = img.tobytes()
 
     tex = glGenTextures(1)
     glBindTexture(GL_TEXTURE_2D, tex)
 
     glTexImage2D(
-        GL_TEXTURE_2D, 0, GL_RGB,
+        GL_TEXTURE_2D, 0, img_format,
         img.width, img.height, 0,
-        GL_RGB, GL_UNSIGNED_BYTE, data
+        img_format, GL_UNSIGNED_BYTE, data
     )
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
@@ -71,6 +85,7 @@ def init_texture():
     global door_tex, curtain_tex, ac_tex
     global poster_1_tex, poster_2_tex, poster_3_tex, poster_4_tex
     global city_day_tex, city_night_tex
+    global pc_boot_tex, pc_home_tex, pc_shutdown_tex
 
     floor_tex   = load_texture("floor.jpg")
     wall_tex    = load_texture("wall.jpg")
@@ -87,6 +102,10 @@ def init_texture():
 
     city_day_tex   = load_texture("city_day.jpg")
     city_night_tex = load_texture("city_night.jpg")
+
+    pc_boot_tex     = load_texture("pc_boot.png")
+    pc_home_tex     = load_texture("pc_home.png")
+    pc_shutdown_tex = load_texture("pc_shutdown.png")
 
 
 

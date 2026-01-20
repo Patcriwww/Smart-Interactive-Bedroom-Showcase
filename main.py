@@ -55,6 +55,8 @@ from smart_bedroom.objects import (
     draw_clock,
 )
 
+from smart_bedroom.objects.workstation import toggle_pc
+
 # =========================
 # UI
 # =========================
@@ -144,12 +146,12 @@ def display():
     glDisable(GL_DEPTH_TEST)
     glDisable(GL_LIGHTING)
 
-    draw_hud_bg(8, h - 8, 650, 155, alpha=0.55)
+    draw_hud_bg(8, h - 8, 650, 170, alpha=0.55)
 
     draw_text(15, h - 25, "SMART INTERACTIVE BEDROOM")
     draw_text(15, h - 40, "Kelompok 9 - Komputer Grafik")
     draw_text(15, h - 60, "Move : W A S D | Look : Mouse | Q / E Up Down")
-    draw_text(15, h - 75, "Controls : O Wardrobe | N Day/Night | L Main Lamp | K Bed Lamp")
+    draw_text(15, h - 75, "Controls : O Wardrobe | N Day/Night | L Main Lamp | K Bed Lamp | P PC Power")
 
     draw_text(15, h - 100, "Camera Focus")
     draw_text(25, h - 120, "1 Bed   2 Table   3 Window   4 Wardrobe   5 Door")
@@ -273,6 +275,8 @@ def keyboard(key, x, y):
         toggle_main_lamp()
     elif key == b'k':
         toggle_bed_lamp()
+    elif key == b'p':
+        toggle_pc()
 
 
 
