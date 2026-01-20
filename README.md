@@ -47,7 +47,8 @@ Project ini dibuat untuk memenuhi tugas mata kuliah **Komputer Grafik & Pengolah
 ### Interaksi
 - `O` : Toggle wardrobe  
 - `N` : Mode siang / malam  
-- `L` : Lampu  
+- `L` : Lampu Plafon
+- `K` : Lampu Tidur  
    
 
 ### Focus Kamera
@@ -56,14 +57,14 @@ Project ini dibuat untuk memenuhi tugas mata kuliah **Komputer Grafik & Pengolah
 - `3` : Window  
 - `4` : Wardrobe  
 - `5` : Door  
-- `6` : Poster/Poster2  
+- `6` : Poster/Poster2/Poster3/Poster4  
 - `7` : Workstation  
 - `8` : Bookshelf  
 - `9` : Trash Bin  
 - `0` : Plant
-- `H` : Air Conditioner
+- `T` : Air Conditioner
 - `C` : Lampu Plafon
-- `J` : Jam     
+- `J` : Jam
 
 ### Keluar
 - `ESC` : Paused
